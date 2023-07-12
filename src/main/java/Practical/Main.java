@@ -1,4 +1,6 @@
-package jpabook.model;
+package Practical;
+
+import Practical.entity.Member;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -20,8 +22,8 @@ public class Main {
 
         try {
             tx.begin(); //트랜잭션 시작
-            //TODO 비즈니스 로직
-            tx.commit();//트랜잭션 커밋
+            service(em); //TODO 비즈니스 로직
+            tx.commit(); //트랜잭션 커밋
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -31,6 +33,17 @@ public class Main {
         }
 
         emf.close(); //엔티티 매니저 팩토리 종료
+    }
+
+    public static void service(EntityManager em) {
+        Member member = new Member();
+        member.setName("hello");
+        em.persist(member);
+        Long id = member.getId();
+        System.out.println("memberId is = " + id);
+
+        em.remove(member);
+
     }
 
 }
