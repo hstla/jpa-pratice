@@ -8,7 +8,7 @@ public class Delivery {
     @Column(name = "DELIVERY_ID")
     private Long id;
 
-    @OneToMany(mappedBy = "delivery")
+    @OneToOne(mappedBy = "delivery")
     private Order order;
 
     private String city;
