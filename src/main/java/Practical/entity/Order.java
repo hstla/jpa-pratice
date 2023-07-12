@@ -20,11 +20,22 @@ public class Order {
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems = new ArrayList<OrderItem>();
 
+    @OneToOne
+    @JoinColumn(name = "DELIVERY_ID")
+    private Delivery delivery;
+
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date oderDate;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
+
+
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
+        delivery.setOrder(this);
+    }
 
     public Member getMember() {
         return member;
