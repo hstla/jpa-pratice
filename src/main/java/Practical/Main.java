@@ -70,6 +70,7 @@ public class Main {
         em.remove(item1);
         em.remove(order);
         em.remove(member);
+        em.clear();
     }
 
 }
