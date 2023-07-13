@@ -1,6 +1,9 @@
 package Practical;
 
+import Practical.entity.Item;
 import Practical.entity.Member;
+import Practical.entity.Order;
+import Practical.entity.OrderItem;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -42,8 +45,31 @@ public class Main {
         Long id = member.getId();
         System.out.println("memberId is = " + id);
 
-        em.remove(member);
+        Order order = new Order();
+        order.setMember(member);
+        em.persist(order);
+        Long id1 = order.getId();
+        System.out.println("orderId = " + id1);
+        System.out.println("orderMember = " + order.getMember().getName());
 
+        Item item1 = new Item();
+
+        item1.setName("item1");
+
+        em.persist(item1);
+
+        OrderItem orderItem = new OrderItem();
+        orderItem.setItem(item1);
+        orderItem.setOrder(order);
+        em.persist(orderItem);
+        System.out.println("orderItemId = " + orderItem.getId());
+        System.out.println("orderItemOrder = " + orderItem.getOrder());
+        System.out.println("orderItemItem = " + orderItem.getItem());
+
+        em.remove(orderItem);
+        em.remove(item1);
+        em.remove(order);
+        em.remove(member);
     }
 
 }
