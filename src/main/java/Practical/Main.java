@@ -1,6 +1,6 @@
 package Practical;
 
-import Practical.entity.Item;
+import Practical.entity.item.Item;
 import Practical.entity.Member;
 import Practical.entity.Order;
 import Practical.entity.OrderItem;
@@ -10,9 +10,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-/**
- * Created by 1001218 on 15. 4. 5..
- */
+
 public class Main {
 
     public static void main(String[] args) {
@@ -70,7 +68,6 @@ public class Main {
         em.remove(item1);
         em.remove(order);
         em.remove(member);
-        em.clear();
     }
 
 }

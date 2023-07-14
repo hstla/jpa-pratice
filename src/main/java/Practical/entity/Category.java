@@ -1,5 +1,7 @@
 package Practical.entity;
 
+import Practical.entity.item.Item;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
