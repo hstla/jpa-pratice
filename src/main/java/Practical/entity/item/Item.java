@@ -1,11 +1,15 @@
-package Practical.entity;
+package Practical.entity.item;
+
+import Practical.entity.Category;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Item {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "DTYPE")
+public abstract class Item {
     @Id
     @GeneratedValue
     @Column(name = "ITEM_ID")
@@ -59,3 +63,4 @@ public class Item {
         this.stockQuantity = stockQuantity;
     }
 }
+
