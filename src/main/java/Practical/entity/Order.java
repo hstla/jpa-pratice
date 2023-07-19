@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "ORDERS")
-public class Order extends BasicEntity{
+public class Order extends BasicEntity {
     @Id
     @GeneratedValue
     @Column(name = "ORDER_ID")
@@ -20,7 +20,7 @@ public class Order extends BasicEntity{
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<OrderItem>();
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "DELIVERY_ID")
     private Delivery delivery;
 
