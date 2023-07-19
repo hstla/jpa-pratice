@@ -1,5 +1,6 @@
 package Practical;
 
+import Practical.entity.item.Album;
 import Practical.entity.item.Item;
 import Practical.entity.Member;
 import Practical.entity.Order;
@@ -50,7 +51,7 @@ public class Main {
         System.out.println("orderId = " + id1);
         System.out.println("orderMember = " + order.getMember().getName());
 
-        Item item1 = new Item();
+        Item item1 = new Album();
 
         item1.setName("item1");
 
@@ -64,10 +65,7 @@ public class Main {
         System.out.println("orderItemOrder = " + orderItem.getOrder());
         System.out.println("orderItemItem = " + orderItem.getItem());
 
-        em.remove(orderItem);
-        em.remove(item1);
-        em.remove(order);
-        em.remove(member);
+        em.clear();
     }
 
 }
