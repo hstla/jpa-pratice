@@ -13,19 +13,9 @@ public class JpaMain {
         tx.begin();
 
         try {
-            //비영속
-            Member member = new Member();
-            member.setId(101L);
-            member.setName("helloJPA");
+            Member member = em.find(Member.class, 105L);
+            member.setName("AA");
 
-            //영속
-            System.out.println("==== BEFORE ====");
-            em.persist(member);
-            System.out.println("==== AFTER ====");
-
-            Member member1 = em.find(Member.class, 101L);
-            System.out.println("member1.getId() = " + member1.getId());  //select 쿼리 안나옴 1차 캐시 저장
-            System.out.println("member1.getName() = " + member1.getName());
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
