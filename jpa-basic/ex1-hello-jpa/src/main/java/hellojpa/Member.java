@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Entity
 public class Member {
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(name = "name")
     private String userName;
@@ -25,16 +25,6 @@ public class Member {
 
     @Lob
     private String description;
-
-    public Member(Long id, String userName, Integer age, RoleType roleType, Date createDate, Date lastModifiedDate, String description) {
-        this.id = id;
-        this.userName = userName;
-        this.age = age;
-        this.roleType = roleType;
-        this.createDate = createDate;
-        this.lastModifiedDate = lastModifiedDate;
-        this.description = description;
-    }
 
     public Integer getAge() {
         return age;
