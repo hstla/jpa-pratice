@@ -1,35 +1,20 @@
-package Practical.entity.item;
+package jpabook.jpashop.domain;
 
-import Practical.entity.Category;
-
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "DTYPE")
-public abstract class Item {
+public class Item {
     @Id
     @GeneratedValue
     @Column(name = "ITEM_ID")
     private Long id;
-
     private String name;
+
     private int price;
     private int stockQuantity;
-
-    @ManyToMany(mappedBy = "items")
-    private List<Category> categories = new ArrayList<Category>();
-
-
-    public List<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
-    }
 
     public Long getId() {
         return id;
@@ -63,4 +48,3 @@ public abstract class Item {
         this.stockQuantity = stockQuantity;
     }
 }
-
