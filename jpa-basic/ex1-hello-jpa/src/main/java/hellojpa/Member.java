@@ -1,20 +1,82 @@
 package hellojpa;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import jdk.jfr.Label;
+
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Member {
     @Id
     private Long id;
-    private String name;
+    @Column(name = "name")
+    private String userName;
 
-    public Member() {
+    private Integer age;
+
+    @Enumerated(EnumType.STRING)
+    private RoleType roleType;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastModifiedDate;
+
+    @Lob
+    private String description;
+
+    public Member(Long id, String userName, Integer age, RoleType roleType, Date createDate, Date lastModifiedDate, String description) {
+        this.id = id;
+        this.userName = userName;
+        this.age = age;
+        this.roleType = roleType;
+        this.createDate = createDate;
+        this.lastModifiedDate = lastModifiedDate;
+        this.description = description;
     }
 
-    public Member(Long id, String name) {
-        this.id = id;
-        this.name = name;
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public RoleType getRoleType() {
+        return roleType;
+    }
+
+    public void setRoleType(RoleType roleType) {
+        this.roleType = roleType;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Date getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(Date lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Member() {
     }
 
     public Long getId() {
@@ -25,11 +87,11 @@ public class Member {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }
