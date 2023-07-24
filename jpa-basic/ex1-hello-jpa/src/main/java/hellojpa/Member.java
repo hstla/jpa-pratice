@@ -1,9 +1,6 @@
 package hellojpa;
 
-import jdk.jfr.Label;
-
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 public class Member {
@@ -14,11 +11,14 @@ public class Member {
     @Column(name = "USERNAME")
     private String userName;
 
-//    @Column(name = "TEAM_ID")
-//    private Long teamId;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TEAM_ID")
     private Team team;
+
+    @OneToOne
+    @JoinColumn(name = "LOCKER_ID")
+    private Locker locker;
+
 
     public Team getTeam() {
         return team;
