@@ -13,18 +13,19 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Movie movie = new Movie();
-            movie.setDirector("aaa");
-            movie.setActor("bbb");
-            movie.setName("바람");
-            movie.setPrice(10000);
+            Member member = new Member();
+            member.setUserName("hello");
+            em.persist(member);
 
-            em.persist(movie);
             em.flush();
             em.clear();
 
-//            em.find(Movie.class, 1L);
-
+            Member reference = em.getReference(Member.class, member.getId());
+            System.out.println("reference = " + reference.getClass());
+            System.out.println("reference = " + reference.getUserName());
+//            Member findMember = em.find(Member.class, member.getId());
+//            System.out.println("findMember.getId() = " + findMember.getId());
+//            System.out.println("findMember.getUserName() = " + findMember.getUserName());
 
             tx.commit();
         } catch (Exception e) {
