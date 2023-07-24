@@ -13,19 +13,16 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Member member = new Member();
-            member.setUserName("hello");
-            em.persist(member);
+            Child child1 = new Child();
+            Child child2 = new Child();
 
-            em.flush();
-            em.clear();
+            Parent parent = new Parent();
+            parent.addChild(child1);
+            parent.addChild(child2);
 
-            Member reference = em.getReference(Member.class, member.getId());
-            System.out.println("reference = " + reference.getClass());
-            System.out.println("reference = " + reference.getUserName());
-//            Member findMember = em.find(Member.class, member.getId());
-//            System.out.println("findMember.getId() = " + findMember.getId());
-//            System.out.println("findMember.getUserName() = " + findMember.getUserName());
+            em.persist(parent);
+//            em.persist(child1);
+//            em.persist(child2);
 
             tx.commit();
         } catch (Exception e) {
