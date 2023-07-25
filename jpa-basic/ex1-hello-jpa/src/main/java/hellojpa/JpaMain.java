@@ -13,20 +13,42 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Child child1 = new Child();
-            Child child2 = new Child();
+            Member member = new Member();
+            member.setUserName("member1");
+            member.setHomeAddress(new Address("home1", "street", "zi"));
 
-            Parent parent = new Parent();
-            parent.addChild(child1);
-            parent.addChild(child2);
+            member.getFavoriteFoods().add("치킨");
+            member.getFavoriteFoods().add("족발");
+            member.getFavoriteFoods().add("피자");
 
-            em.persist(parent);
+            member.getAddressHistory().add(new Address("old1", "street", "zi"));
+            member.getAddressHistory().add(new Address("old2", "street", "zi"));
+            em.persist(member);
+
             em.flush();
             em.clear();
+            System.out.println("==========================");
+            Member findMember = em.find(Member.class, member.getId());
 
-            Parent findParent = em.find(Parent.class, parent.getId());
-//            findParent.getChildren().remove(0);
-            em.remove(findParent);
+            System.out.println("=============값 타입 조회=============");
+            for (String favoriteFood : findMember.getFavoriteFoods()) {
+                System.out.println(favoriteFood);
+            }
+            System.out.println("==========================");
+
+            System.out.println("=============값 타입 변경=============");
+            Address homeAddress = findMember.getHomeAddress();
+            findMember.setHomeAddress(new Address("changeCity", homeAddress.getStreet(), homeAddress.getZipcode()));
+
+            //치킨 -> 백숙
+            findMember.getFavoriteFoods().remove("치킨");
+            findMember.getFavoriteFoods().add("백숙");
+
+            findMember.getAddressHistory().remove(new Address("old1", "street", "zi"));
+            findMember.getAddressHistory().add(new Address("new1", "street", "zi"));
+
+
+            System.out.println("==========================");
 
             tx.commit();
         } catch (Exception e) {
