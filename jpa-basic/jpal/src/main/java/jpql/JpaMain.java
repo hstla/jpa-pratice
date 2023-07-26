@@ -11,28 +11,37 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Member member1 = new Member();
-            member1.setUsername("hello1");
-            member1.setAge(300);
+            Team team1 = new Team();
+            Team team2 = new Team();
+            Team team3 = new Team();
+            team1.setName("팀A");
+            team2.setName("팀B");
+            team3.setName("팀C");
+            em.persist(team1);
+            em.persist(team2);
+            em.persist(team3);
 
-            Member member2 = new Member();
-            member2.setUsername("hello2");
-            member2.setAge(400);
-
+            Member member1 = new Member("회원1", 10);
+            member1.changeTeam(team1);
+            Member member2 = new Member("회원2", 10);
+            member2.changeTeam(team1);
+            Member member3 = new Member("회원3", 10);
+            member3.changeTeam(team2);
+            Member member4 = new Member("회원4", 10);
             em.persist(member1);
             em.persist(member2);
+            em.persist(member3);
+            em.persist(member4);
 
+            em.flush();
+            em.clear();
 
-            List<MemberDTO> resultList = em.createQuery("select new jpql.MemberDTO(m.username, m.age) from Member as m", MemberDTO.class)
+            String query = "select m from Member as m join fetch m.team" ;
+            List<Member> resultList = em.createQuery(query, Member.class)
                     .getResultList();
-
-            for (MemberDTO member : resultList) {
-                System.out.println("member username = " + member.getUsername());
+            for (Member member : resultList) {
+                System.out.println("member = " + member.getUsername() + ", " + member.getTeam().getName());
             }
-
-
-//            em.persist(member1);
-//            em.persist(member2);
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
