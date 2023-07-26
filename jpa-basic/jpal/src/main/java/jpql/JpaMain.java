@@ -35,12 +35,10 @@ public class JpaMain {
 
             em.flush();
             em.clear();
-
-            String query = "select m from Member as m where m = :member";
-            Member findMember = em.createQuery(query, Member.class)
-                    .setParameter("member", member1)
+            Member singleResult = em.createNamedQuery("Member.findByUsername", Member.class)
+                    .setParameter("username", "회원1")
                     .getSingleResult();
-            System.out.println("findMember = " + findMember);
+            System.out.println("singleResult = " + singleResult);
 
             tx.commit();
         } catch (Exception e) {
