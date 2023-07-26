@@ -23,11 +23,10 @@ public class JpaMain {
             em.persist(member2);
 
 
-            List<Member> resultList = em.createQuery("select m from Member as m where m.username=:username", Member.class)
-                    .setParameter("username", "hello2")
+            List<MemberDTO> resultList = em.createQuery("select new jpql.MemberDTO(m.username, m.age) from Member as m", MemberDTO.class)
                     .getResultList();
 
-            for (Member member : resultList) {
+            for (MemberDTO member : resultList) {
                 System.out.println("member username = " + member.getUsername());
             }
 
