@@ -1,9 +1,7 @@
 package jpql;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
+import java.util.List;
 
 public class JpaMain {
     public static void main(String[] args) {
@@ -13,16 +11,29 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Member member = new Member();
-            member.setUsername("hello");
+            Member member1 = new Member();
+            member1.setUsername("hello1");
+            member1.setAge(300);
 
-            Team team = new Team();
-            team.setName("helloTeam");
+            Member member2 = new Member();
+            member2.setUsername("hello2");
+            member2.setAge(400);
 
-            member.setTeam(team);
+            em.persist(member1);
+            em.persist(member2);
 
-            em.persist(member);
-            em.persist(team);
+
+            List<Member> resultList = em.createQuery("select m from Member as m where m.username=:username", Member.class)
+                    .setParameter("username", "hello2")
+                    .getResultList();
+
+            for (Member member : resultList) {
+                System.out.println("member username = " + member.getUsername());
+            }
+
+
+//            em.persist(member1);
+//            em.persist(member2);
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
